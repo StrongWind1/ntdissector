@@ -449,7 +449,7 @@ class NTDS:
                 res["Primary:WDigest"] = list()
                 try:
                     wDigestCreds = WDIGEST_CREDENTIALS(creds.split(unhexlify("0100000001000000e80100000600000001000000e0010000"))[1])
-                except:
+                except Exception as e:
                     logging.error("__formatSupplementalCredentialsInfo (ADAM) : %s" % e)
                     return
                 for j in range(wDigestCreds["NumberOfHashes"]):
@@ -761,7 +761,7 @@ class NTDS:
         stats = dict()
 
         def __reduce(record):
-            return {"page_num": record._node.tag.page.num, "page_buf": bytes(record._node.tag.page.buf), "node_num": record._node.num}
+            return {"page_num": int(record._node.tag.page.num), "page_buf": bytes(record._node.tag.page.buf), "node_num": int(record._node.num)}
 
         mpManager = mp.Manager()
         workersQ = mpManager.Queue()
