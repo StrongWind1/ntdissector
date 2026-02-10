@@ -174,7 +174,7 @@ class NTDS:
         elif systemHive is not None:
             if Path(systemHive).is_file():
                 try:
-                    winreg = winregistry.Registry(systemHive)
+                    winreg = winregistry.get_registry_parser(systemHive)
                 except: 
                     logging.error(f"Couldn't parse the SYSTEM hive file, wrong file ? {systemHive}")
                 else:
